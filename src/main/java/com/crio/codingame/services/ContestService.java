@@ -56,11 +56,24 @@ public class ContestService implements IContestService {
 
     // TODO: CRIO_TASK_MODULE_SERVICES
     // Return a specific List of Random Questions as specified by numQuestion.
+    public static int rand(int min, int max)
+    {
+        if (min > max || (max - min + 1 > Integer.MAX_VALUE)) {
+            throw new IllegalArgumentException("Invalid range");
+        }
+ 
+        return new Random().nextInt(max - min + 1) + min;
+    }
 
     private List<Question> pickQuestionsList(final List<Question> questions,final Integer numQuestion){
-     List<Question> randoQuestions = new ArrayList<>();
-
-     return Collections.emptyList();
+        List<Question> randomQuestions = new ArrayList<>();
+        int i = numQuestion;
+     
+        while(i>0){
+            randomQuestions.add(questions.get(rand(0, numQuestion)));
+            i--;
+        }
+        return Collections.emptyList();
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -70,7 +83,7 @@ public class ContestService implements IContestService {
 
     @Override
     public List<Contest> getAllContestLevelWise(Level level) {
-     List<Contest> AllCOntestLevelWise = new  ArrayList<>();
+     List<Contest> AllContestLevelWise = new  ArrayList<>();
 
      List<Contest> contestLevelList = contestRepository.findAllContestLevelWise(level);
 
@@ -80,7 +93,7 @@ public class ContestService implements IContestService {
        }
 
        for(Contest contest : contestLevelList){
-        AllCOntestLevelWise.add(new Contest(
+        AllContestLevelWise.add(new Contest(
             contest.getId(),
             contest.getName(),
             contest.getQuestions(),
@@ -92,8 +105,11 @@ public class ContestService implements IContestService {
         );
        }
 
-       return AllCOntestLevelWise;
+       return AllContestLevelWise;
     }
+
+
+    
 
     @Override
     public ContestSummaryDto runContest(String contestId, String contestCreator) throws ContestNotFoundException, InvalidContestException {
@@ -131,6 +147,9 @@ public class ContestService implements IContestService {
     }
 
     //Reference:- https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
+
+    
+
     private List<Question> pickRandomQuestions(final List<Question> questions){
         List<Question> qList = questions.stream().collect(Collectors.toList());
         int size = qList.size();

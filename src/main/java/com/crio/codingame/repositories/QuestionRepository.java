@@ -45,8 +45,9 @@ public class QuestionRepository implements IQuestionRepository {
     @Override
     public List<Question> findAll() {
      return  new ArrayList<>(questionMap.values());
-    }
 
+    }
+    
     @Override
     public Optional<Question> findById(String id) {
         return Optional.ofNullable(questionMap.get(id));
@@ -86,6 +87,7 @@ public class QuestionRepository implements IQuestionRepository {
     return questionMap.values()
         .stream().filter(lvl -> level.equals(lvl.getLevel()))
         .collect(Collectors.toList());
-    }
+
+   }
     
 }

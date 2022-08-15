@@ -86,6 +86,7 @@ public class ContestRepository implements IContestRepository {
     public List<Contest> findAllContestLevelWise(Level level) {
      return contestMap.values().
             stream().filter(lvl -> level.equals(lvl.getLevel())).collect(Collectors.toList());
+
     }
 
     

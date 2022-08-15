@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
+
 import com.crio.codingame.entities.User;
 
 public class UserRepository implements IUserRepository{
@@ -44,6 +46,7 @@ public class UserRepository implements IUserRepository{
     @Override
     public List<User> findAll() {
      return new ArrayList<>(userMap.values());
+
     }
 
     @Override
@@ -92,6 +95,6 @@ public class UserRepository implements IUserRepository{
         }
         return Optional.empty();   
     
+
     }
-    
 }

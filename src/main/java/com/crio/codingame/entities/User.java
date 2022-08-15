@@ -59,6 +59,7 @@ public class User extends BaseEntity {
     public boolean checkIfContestExists(Contest contest){
         return contests.contains(contest);
     }
+  
 
     public void addContestQuestion(Contest contest, List<Question> qList){
         userContestQuestions.addContestQuestion(contest, qList);
