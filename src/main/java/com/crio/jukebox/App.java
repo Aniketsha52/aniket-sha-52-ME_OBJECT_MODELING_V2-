@@ -1,5 +1,9 @@
 package com.crio.jukebox;
 
+import com.crio.jukebox.appConfig.ApplicationConfig;
+import com.crio.jukebox.commands.CommandInvoker;
+import com.crio.jukebox.exception.NoSuchCommandException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,6 +28,24 @@ public class App {
 
     public static void run(List<String> commandLineArgs) {
     // Complete the final logic to run the complete program.
+      ApplicationConfig applicationConfig = new ApplicationConfig();
+    CommandInvoker commandInvoker = applicationConfig.getCommandInvoker();
+    BufferedReader reader;
+    String inputFile = commandLineArgs.get(0).split("=")[1];
+    commandLineArgs.remove(0);
+    try {
+        reader = new BufferedReader(new FileReader(inputFile));
+        String line = reader.readLine();
+        while (line != null) {
+            List<String> tokens = Arrays.asList(line.split(" "));
+            commandInvoker.executeCommand(tokens.get(0),tokens);
+            // read next line
+            line = reader.readLine();
+        }
+        reader.close();
+    } catch (IOException | NoSuchCommandException e) {
+        e.printStackTrace();
+    }
 
     }
 }
